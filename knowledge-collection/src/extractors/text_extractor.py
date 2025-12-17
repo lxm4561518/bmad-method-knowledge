@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+
 class TextExtractor(BaseExtractor):
     def _get_soup(self, url: str) -> BeautifulSoup:
         headers = {
