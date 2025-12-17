@@ -49,8 +49,9 @@ async def extract_content(request: ExtractRequest):
     # The current CookieManager loads on init. We might want to reload if needed, 
     # but let's stick to simple implementation first.
     cookies = cookie_manager.get_cookies_for_domain(domain_key)
+    cookie_file = cookie_manager.get_cookie_file_for_domain(domain_key)
     
-    extractor = ExtractorFactory.get_extractor(url, cookies)
+    extractor = ExtractorFactory.get_extractor(url, cookies, cookie_file)
     if not extractor:
         raise HTTPException(status_code=400, detail=f"No suitable extractor found for URL: {url}")
     

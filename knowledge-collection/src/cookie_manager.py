@@ -13,6 +13,7 @@ class CookieManager:
         """
         self.cookie_source = cookie_source
         self.cookies = {}
+        self.cookie_files = {}
         self._load_cookies()
 
     def _load_cookies(self):
@@ -20,6 +21,10 @@ class CookieManager:
             self._load_from_directory()
         elif os.path.isfile(self.cookie_source) and self.cookie_source.endswith('.json'):
             self._load_from_json()
+        elif os.path.isfile(self.cookie_source):
+             # Assume single netscape file for a default domain or try to infer?
+             # For simplicity, we just ignore or handle in future.
+             pass
         else:
             # If it's a file but not json, maybe it's a single netscape file? 
             # For now, let's stick to dir or json.
@@ -42,6 +47,7 @@ class CookieManager:
                     cookie_dict[cookie.name] = cookie.value
                 
                 self.cookies[domain_key] = cookie_dict
+                self.cookie_files[domain_key] = os.path.abspath(filepath)
                 # print(f"Loaded cookies for {domain_key} from {filename}")
             except Exception as e:
                 print(f"Warning: Failed to load cookies from {filepath}: {e}")
@@ -51,6 +57,7 @@ class CookieManager:
         try:
             with open(self.cookie_source, 'r', encoding='utf-8') as f:
                 self.cookies = json.load(f)
+                # No file mapping for JSON entries
         except Exception as e:
             print(f"Warning: Error loading cookies from {self.cookie_source}: {e}")
 
@@ -59,3 +66,10 @@ class CookieManager:
         Returns cookies for a given domain key (e.g., 'zhihu', 'wechat', 'bilibili').
         """
         return self.cookies.get(domain_key, {})
+        
+    def get_cookie_file_for_domain(self, domain_key: str) -> Optional[str]:
+        """
+        Returns the absolute path to the cookie file for a given domain key.
+        Only available if cookies were loaded from .txt files.
+        """
+        return self.cookie_files.get(domain_key)

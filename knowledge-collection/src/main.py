@@ -36,11 +36,14 @@ def main():
     elif "douyin.com" in args.url: domain_key = "douyin"
     
     cookies = cookie_manager.get_cookies_for_domain(domain_key)
+    cookie_file = cookie_manager.get_cookie_file_for_domain(domain_key)
     if cookies:
         print(f"Loaded cookies for domain: {domain_key}")
+    if cookie_file:
+        print(f"Using cookie file: {cookie_file}")
     
     # 3. Get Extractor
-    extractor = ExtractorFactory.get_extractor(args.url, cookies)
+    extractor = ExtractorFactory.get_extractor(args.url, cookies, cookie_file)
     if not extractor:
         print(f"Error: No suitable extractor found for URL: {args.url}")
         sys.exit(1)
