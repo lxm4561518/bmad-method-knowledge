@@ -1,0 +1,22 @@
+{
+  "zhihu": {
+    "z_c0": "YOUR_ZHIHU_COOKIE_VALUE",
+    "_xsrf": "YOUR_XSRF_TOKEN"
+  },
+  "wechat": {
+    "wxsid": "YOUR_WECHAT_WXSID",
+    "wxuin": "YOUR_WECHAT_WXUIN"
+  },
+  "toutiao": {
+    "tt_webid": "YOUR_TOUTIAO_WEBID",
+    "sessionid": "YOUR_TOUTIAO_SESSIONID"
+  },
+  "bilibili": {
+    "SESSDATA": "YOUR_BILIBILI_SESSDATA",
+    "bili_jct": "YOUR_BILIBILI_JCT"
+  },
+  "douyin": {
+    "sessionid": "YOUR_DOUYIN_SESSIONID",
+    "ttwid": "YOUR_DOUYIN_TTWID"
+  }
+}

@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+knowledge-collection/cookies/*.txt
+temp_audio/
+.env
