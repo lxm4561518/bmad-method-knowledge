@@ -3,3 +3,6 @@ beautifulsoup4
 yt-dlp
 openai-whisper
 torch
+fastapi
+uvicorn
+pydantic
