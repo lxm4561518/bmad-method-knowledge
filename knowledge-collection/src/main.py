@@ -20,6 +20,7 @@ def main():
     parser.add_argument("url", help="Target URL to extract content from")
     parser.add_argument("--cookie-source", default="cookies", help="Path to cookies directory or cookies.json file")
     parser.add_argument("--output-dir", default="outputs", help="Directory to save output JSON")
+    parser.add_argument("--model-size", default="base", choices=["tiny", "base", "small", "medium", "large", "large-v3"], help="Whisper model size (default: base)")
     
     args = parser.parse_args()
     
@@ -43,7 +44,7 @@ def main():
         print(f"Using cookie file: {cookie_file}")
     
     # 3. Get Extractor
-    extractor = ExtractorFactory.get_extractor(args.url, cookies, cookie_file)
+    extractor = ExtractorFactory.get_extractor(args.url, cookies, cookie_file, model_size=args.model_size)
     if not extractor:
         print(f"Error: No suitable extractor found for URL: {args.url}")
         sys.exit(1)

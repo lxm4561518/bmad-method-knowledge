@@ -24,6 +24,7 @@ cookie_manager = CookieManager(COOKIE_DIR)
 
 class ExtractRequest(BaseModel):
     url: str
+    model_size: str = "base"
 
 class ExtractResponse(BaseModel):
     title: str
@@ -51,7 +52,7 @@ async def extract_content(request: ExtractRequest):
     cookies = cookie_manager.get_cookies_for_domain(domain_key)
     cookie_file = cookie_manager.get_cookie_file_for_domain(domain_key)
     
-    extractor = ExtractorFactory.get_extractor(url, cookies, cookie_file)
+    extractor = ExtractorFactory.get_extractor(url, cookies, cookie_file, model_size=request.model_size)
     if not extractor:
         raise HTTPException(status_code=400, detail=f"No suitable extractor found for URL: {url}")
     

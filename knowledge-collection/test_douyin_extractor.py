@@ -19,7 +19,7 @@ def test():
         result = extractor.extract(url)
         print("SUCCESS!")
         print(f"Title: {result.get('title')}")
-        # print(f"Content: {result.get('content')[:100]}...")
+        print(f"Content Preview:\n{result.get('content')[:500]}...")
     except Exception as e:
         print(f"FAILED: {e}")
         import traceback

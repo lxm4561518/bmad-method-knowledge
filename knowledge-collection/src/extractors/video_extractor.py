@@ -60,9 +60,21 @@ class VideoExtractor(BaseExtractor):
     def _transcribe_audio(self, filepath: str) -> str:
         """
         Transcribes audio file using Whisper.
+        Uses initial_prompt to encourage punctuation and segments for better readability.
         """
         print(f"Transcribing {filepath}...")
-        result = self.model.transcribe(filepath, language='zh')
+        # Use initial_prompt to guide the model to use punctuation
+        result = self.model.transcribe(
+            filepath, 
+            language='zh',
+            initial_prompt="这是一段中文对话，包括标点符号。"
+        )
+        
+        # Prefer segments with newlines for better readability
+        if 'segments' in result and result['segments']:
+            text_segments = [seg['text'].strip() for seg in result['segments']]
+            return "\n".join(text_segments)
+            
         return result['text']
 
     def extract(self, url: str) -> Dict[str, Any]:

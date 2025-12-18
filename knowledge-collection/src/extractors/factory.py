@@ -6,7 +6,7 @@ from .douyin_extractor import DouyinExtractor
 
 class ExtractorFactory:
     @staticmethod
-    def get_extractor(url: str, cookies: Optional[Dict[str, str]] = None, cookie_file: Optional[str] = None) -> Optional[BaseExtractor]:
+    def get_extractor(url: str, cookies: Optional[Dict[str, str]] = None, cookie_file: Optional[str] = None, model_size: str = "base") -> Optional[BaseExtractor]:
         if "zhihu.com" in url:
             return ZhihuExtractor(cookies)
         elif "weixin.qq.com" in url:
@@ -14,8 +14,8 @@ class ExtractorFactory:
         elif "toutiao.com" in url:
             return ToutiaoExtractor(cookies)
         elif "douyin.com" in url:
-            return DouyinExtractor(cookies, cookie_file=cookie_file)
+            return DouyinExtractor(cookies, cookie_file=cookie_file, model_size=model_size)
         elif "bilibili.com" in url:
-            return VideoExtractor(cookies)
+            return VideoExtractor(cookies, model_size=model_size)
         else:
             return None
